@@ -29,6 +29,9 @@
         <data android:scheme="recipe-react-native"/>
         <data android:scheme="com.moodupteam.recipeapp"/>
         <data android:scheme="exp+recipe-react-native"/>
+        <data android:scheme="recipe"/>
+        <data android:scheme="com.rhadzicki.recipeapp"/>
+        <data android:scheme="exp+recipe"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

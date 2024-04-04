@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "recipe-react-native",
-    "slug": "recipe-react-native",
-    "scheme": "recipe-react-native",
+    "name": "recipe",
+    "slug": "recipe",
+    "scheme": "recipe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

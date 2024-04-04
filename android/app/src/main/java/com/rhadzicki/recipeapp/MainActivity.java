@@ -1,4 +1,4 @@
-package com.moodupteam.recipeapp;
+package com.rhadzicki.recipeapp;
 
 import android.os.Build;
 import android.os.Bundle;

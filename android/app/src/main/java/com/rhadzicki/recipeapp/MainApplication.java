@@ -1,4 +1,4 @@
-package com.moodupteam.recipeapp;
+package com.rhadzicki.recipeapp;
 
 import android.app.Application;
 import android.content.res.Configuration;
