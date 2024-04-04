@@ -1,0 +1,4 @@
+{
+  "extends": ["universe", "plugin:react-hooks/recommended"],
+  "ignorePatterns": ["node_modules/*", "android/*", "ios/*", ".expo/*", "assets/*"]
+}

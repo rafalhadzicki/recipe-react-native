@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "recipe-react-native",
+    "slug": "recipe-react-native",
+    "scheme": "recipe-react-native",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Recipe App to access your photos",
+          "cameraPermission": "Allow Recipe App to take pictures and record video",
+          "microphonePermission": "Allow Recipe App to record audio"
+        }
+      ],
+      "expo-router"
+    ],
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.rhadzicki.recipeapp",
+      "jsEngine": "hermes",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.rhadzicki.recipeapp",
+      "jsEngine": "hermes",
+      "softwareKeyboardLayoutMode": "pan"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "33a9afa8-b418-47fb-8d14-029c4d3e6f25"
+      }
+    }
+  }
+}
