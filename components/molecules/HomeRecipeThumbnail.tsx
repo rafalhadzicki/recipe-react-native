@@ -64,6 +64,7 @@ const HomeRecipeThumbnail = ({ selectedCategoryId, isSaved, ...recipe }: RecipeT
                   onPress={handleSave}
                   saved={isSaved}
                   loadingColor={colors.green[100]}
+                  loading={isRecipeSaving || isRecipeUnsaving}
                 />
               </View>
             </>

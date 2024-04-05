@@ -361,20 +361,23 @@ export const useGetSavedRecipes = () => {
     const res = await getDoc(userRef);
     if (res.exists()) {
       const savedRecipesIds = res.data().savedRecipesIds;
-      const savedRecipes = await Promise.all(
-        savedRecipesIds.map(async recipeId => {
-          const recipeRef = doc(recipesCollection, recipeId);
-          const recipeRes = await getDoc(recipeRef);
-          if (recipeRes.exists()) {
-            const recipeData: Recipe = {
-              id: recipeRes.id,
-              ...recipeRes.data()
-            };
-            return recipeData;
+      const savedRecipes: Recipe[] = [];
+      await Promise.all(
+        savedRecipesIds.map(async (recipeId: string) => {
+          const docRef = doc(recipesCollection, recipeId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const recipe = docSnap.data() as Recipe;
+            recipe.id = docSnap.id;
+            savedRecipes.push(recipe);
+          } else {
+            await updateDoc(userRef, {
+              savedRecipesIds: arrayRemove(recipeId)
+            });
           }
-          throw new Error('Recipe not found');
         })
       );
+
       await getImages(savedRecipes);
       return savedRecipes;
     }
@@ -427,6 +430,7 @@ export const useDeleteRecipe = () => {
       queryClient.invalidateQueries([QueryKeys.RecipesByTime]);
       queryClient.invalidateQueries([QueryKeys.RecipesByRating]);
       queryClient.invalidateQueries([QueryKeys.Recipes]);
+      queryClient.invalidateQueries([QueryKeys.SavedRecipes]);
     }
   });
   return { deleteRecipe, isRecipeDeleting };
