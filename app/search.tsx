@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -25,14 +25,14 @@ const SearchScreen = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'searchScreen' });
   const { control, handleSubmit, watch } = useForm();
   const { push } = useRouter();
-
+  const { filter } = useLocalSearchParams();
   const dispatch = useAppDispatch();
   const recentRecipesIds = useAppSelector(selectRecentRecipesIds);
 
   const { getFilteredRecipes, areFilteredRecipesLoading } = useGetFilteredRecipes();
   const { recipesById, areRecipesByIdLoading } = useGetRecipesById(recentRecipesIds);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(!!filter);
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [searchParams, setSearchParams] = useState<RecipeSortingParams>();
   const inputWatch = watch(SearchFormFields.Name);

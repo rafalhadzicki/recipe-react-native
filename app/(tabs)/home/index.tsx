@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import { useGetCategory } from '@/api/recipe';
 import { useGetUserPicture } from '@/api/user';
@@ -29,34 +29,37 @@ const RecipesPage = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.upperContentContainer}>
-        <View style={styles.namePictureContainer}>
-          <View style={styles.welcomeTextContainer}>
-            <CustomText style={styles.welcomeText}>{`${t('hello')} ${
-              userDisplayName.split(' ')[0]
-            }`}</CustomText>
-            <CustomText style={styles.whatAreYouCookingText}>{t('whatAreYouCooking')}</CustomText>
+      <ScrollView contentContainerStyle={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <View style={styles.upperContentContainer}>
+          <View style={styles.namePictureContainer}>
+            <View style={styles.welcomeTextContainer}>
+              <CustomText style={styles.welcomeText}>{`${t('hello')} ${
+                userDisplayName.split(' ')[0]
+              }`}</CustomText>
+              <CustomText style={styles.whatAreYouCookingText}>{t('whatAreYouCooking')}</CustomText>
+            </View>
+            {userPicture && (
+              <SkeletonView isLoading={!isPictureLoaded} style={styles.profilePicture}>
+                <Image
+                  source={{ uri: userPicture }}
+                  style={styles.profilePicture}
+                  onLoadEnd={() => setIsPictureLoaded(true)}
+                />
+              </SkeletonView>
+            )}
           </View>
-          {userPicture && (
-            <SkeletonView isLoading={!isPictureLoaded} style={styles.profilePicture}>
-              <Image
-                source={{ uri: userPicture }}
-                style={styles.profilePicture}
-                onLoadEnd={() => setIsPictureLoaded(true)}
-              />
-            </SkeletonView>
-          )}
+          <SearchFilterButtons />
         </View>
-        <SearchFilterButtons />
-      </View>
 
-      <FoodCategoryFilter
-        selectedCategoryId={selectedFoodCategoryId}
-        categories={data}
-        SetCategoryId={setSelectedFoodCategoryId}
-      />
-      <HomeRecipesSlider categoryId={selectedFoodCategoryId} />
-      <NewRecipesSlider categoryId={selectedFoodCategoryId} />
+        <FoodCategoryFilter
+          selectedCategoryId={selectedFoodCategoryId}
+          categories={data}
+          SetCategoryId={setSelectedFoodCategoryId}
+        />
+
+        <HomeRecipesSlider categoryId={selectedFoodCategoryId} />
+        <NewRecipesSlider categoryId={selectedFoodCategoryId} />
+      </ScrollView>
     </View>
   );
 };
@@ -92,6 +95,9 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 10
+  },
+  scrollView: {
+    paddingBottom: 100
   }
 });
 
